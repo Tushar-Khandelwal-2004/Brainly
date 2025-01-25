@@ -57,8 +57,46 @@ app.post("/api/v1/signup", async (req: Request, res: Response): Promise<void> =>
     };
 })
 
-app.post("/api/v1/signin", (req, res) => {
+app.post("/api/v1/signin", async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { username, password } = req.body;
+        const existingUser = await UserModel.findOne({ username });
+        if (!existingUser) {
+            res.status(403).send({
+                success: false,
+                message: "You need to sign up first!"
+            })
+            return;
+        }
+        if (typeof existingUser.password !== 'string') {
+            res.status(500).send({
+                success: false,
+                message: "Internal Server Error: Password is invalid"
+            });
+            return;
+        }
+        const matchPassword = await bcrypt.compare(password, existingUser.password);
+        if (matchPassword) {
+            const token = jwt.sign({
+                id: existingUser._id.toString()
+            }, process.env.JWT_SECRET)
 
+            res.status(200).send({
+                success: true,
+                token: token
+            })
+            return;
+        }
+        res.status(403).send({
+            successs: false,
+            message: "Wrong Password"
+        })
+    } catch (e) {
+        res.status(500).send({
+            success:false,
+            message:"Internal Server Error"
+        })
+    }
 })
 
 app.post("/api/v1/content", (req, res) => {
@@ -91,3 +129,4 @@ async function main() {
 
 }
 main();
+
