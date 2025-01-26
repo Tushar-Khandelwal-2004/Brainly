@@ -107,28 +107,52 @@ app.post("/api/v1/signin", async (req: Request, res: Response): Promise<void> =>
     }
 })
 
-app.post("/api/v1/content",UserMiddleware,async (req, res) => {
-    const {title,link}=req.body;
+app.post("/api/v1/content", UserMiddleware, async (req, res) => {
+    const { title, link } = req.body;
     await ContentModel.create({
 
         title,
-        link,        
+        link,
         //@ts-ignore
-        userId:req.userId,
-        tags:[] 
+        userId: req.userId,
+        tags: []
     })
     res.status(200).send({
-        success:true,
-        message:"Content added"
+        success: true,
+        message: "Content added"
     })
 })
 
-app.get("/api/v1/content", (req, res) => {
+app.get("/api/v1/content", UserMiddleware, async (req, res) => {
+    //@ts-ignore
+    const userId = req.userId;
+    const content=await ContentModel.find({
+        userId:userId
+    }).populate("userId","username");
+    res.status(200).send({
+        success:true,
+        content
+    })
 
 })
 
-app.delete("/api/v1/content", (req, res) => {
+app.delete("/api/v1/content",UserMiddleware,async (req, res) => {
+    const contentId=req.body.contentId;
+    console.log(contentId);
+        //@ts-ignore
 
+    console.log(req.userId);
+
+    await ContentModel.deleteMany({
+        _id:contentId,
+        //@ts-ignore
+        userId:req.userId,
+    })
+    
+    res.status(200).send({
+        success:true,
+        message:"content deleted"
+    })
 })
 
 app.post("/api/v1/brain/share", (req, res) => {

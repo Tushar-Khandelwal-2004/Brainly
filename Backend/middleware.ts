@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
 export const UserMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const header = req.headers["authorization"];
     if (header !== undefined && process.env.JWT_SECRET!==undefined) {
