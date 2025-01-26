@@ -5,7 +5,8 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { z } from "zod"
-import { UserModel } from "./db";
+import { ContentModel, UserModel } from "./db";
+import { UserMiddleware } from "./middleware";
 const app = express();
 app.use(express.json());
 app.post("/api/v1/signup", async (req: Request, res: Response): Promise<void> => {
@@ -77,6 +78,13 @@ app.post("/api/v1/signin", async (req: Request, res: Response): Promise<void> =>
         }
         const matchPassword = await bcrypt.compare(password, existingUser.password);
         if (matchPassword) {
+            if (typeof process.env.JWT_SECRET !== 'string') {
+                res.status(500).send({
+                    success: false,
+                    message: "Internal Server Error: Password is invalid"
+                });
+                return;
+            }
             const token = jwt.sign({
                 id: existingUser._id.toString()
             }, process.env.JWT_SECRET)
@@ -93,14 +101,26 @@ app.post("/api/v1/signin", async (req: Request, res: Response): Promise<void> =>
         })
     } catch (e) {
         res.status(500).send({
-            success:false,
-            message:"Internal Server Error"
+            success: false,
+            message: "Internal Server Error"
         })
     }
 })
 
-app.post("/api/v1/content", (req, res) => {
+app.post("/api/v1/content",UserMiddleware,async (req, res) => {
+    const {title,link}=req.body;
+    await ContentModel.create({
 
+        title,
+        link,        
+        //@ts-ignore
+        userId:req.userId,
+        tags:[] 
+    })
+    res.status(200).send({
+        success:true,
+        message:"Content added"
+    })
 })
 
 app.get("/api/v1/content", (req, res) => {
