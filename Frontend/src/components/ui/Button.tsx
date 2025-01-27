@@ -1,8 +1,29 @@
+import { ReactElement } from "react";
 
-function Button() {
-  return (
-    <div>Button</div>
-  )
+interface ButtonProps{
+    varient:"primary"|"secondary",
+    size:"sm"|"md"|"lg",
+    text:string,
+    startIcon?:ReactElement,
+    endIcon?:ReactElement,
+    onClick:()=>void
 }
 
-export default Button
+const VarientStyles={
+    "primary":"text-white bg-[#5046e4]",
+    "secondary":"text-[#5046e4] bg-[#e0e7fe]"
+}
+
+const SizeStyles={
+    "sm":"text-md",
+    "md":"text-xl",
+    "lg":"text-3xl px-6 py-2"
+}
+
+const defaultStyles="rounded-md px-4 py-1"
+
+export const Button=(props:ButtonProps)=>{
+    return(
+        <button className={`flex items-center ${VarientStyles[props.varient]} ${defaultStyles} ${SizeStyles[props.size]}`}>{props.startIcon}&nbsp;{props.text}</button>
+    )
+}

@@ -1,13 +1,16 @@
 
 import './App.css'
+import { Button } from './components/ui/Button'
+import PlusIcon from './icons/PlusIcon'
 
 function App() {
-
   return (
-    <>
-      <div className='w-12 h-12 bg-blue-500 '></div>
-        
-    </>
+    <div>
+      <Button startIcon={<PlusIcon/>} size="md" text='hello' varient='primary'/>
+    <br />
+    <br />
+      <Button size='lg' text='hello' varient='secondary'/>
+    </div>
   )
 }
 
