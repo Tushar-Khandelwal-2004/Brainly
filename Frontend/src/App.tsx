@@ -2,14 +2,14 @@
 import './App.css'
 import { Button } from './components/ui/Button'
 import PlusIcon from './icons/PlusIcon'
+import ShareIcon from './icons/ShareIcon'
 
 function App() {
   return (
-    <div>
-      <Button startIcon={<PlusIcon size="sm"/>} size="sm" text='hello' varient='primary'/>
-    <br />
-    <br />
-      <Button startIcon={<PlusIcon size="lg"/>} size='lg' text='hello' varient='secondary'/>
+    <div className='pl-10'>
+      <Button startIcon={<ShareIcon size="sm"/>} size="sm" text='Add Content' varient='primary' />
+
+      <Button startIcon={<PlusIcon size="md"/>} size='sm' text='Share Brain' varient='secondary'/>
     </div>
   )
 }
