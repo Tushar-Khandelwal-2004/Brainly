@@ -7,7 +7,7 @@ interface ButtonProps{
     startIcon?:ReactElement,
     endIcon?:ReactElement,
     className?:String,
-    onClick:()=>void
+    onClick?:()=>void
 }
 
 const VarientStyles={
@@ -25,6 +25,6 @@ const defaultStyles="rounded-md px-4 py-1"
 
 export const Button=(props:ButtonProps)=>{
     return(
-        <button className={`flex items-center justify-center ${VarientStyles[props.varient]} ${defaultStyles} ${SizeStyles[props.size]} ${props.className} cursor-pointer `}>{props.startIcon}&nbsp;{props.text}</button>
+        <button onClick={props.onClick} className={`flex items-center justify-center ${VarientStyles[props.varient]} ${defaultStyles} ${SizeStyles[props.size]} ${props.className} cursor-pointer `}>{props.startIcon}&nbsp;{props.text}</button>
     )
 }
