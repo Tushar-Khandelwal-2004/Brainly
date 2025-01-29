@@ -1,6 +1,7 @@
 import { useState } from "react"
 import CrossIcon from "../icons/CrossIcon"
 import { Button } from "./ui/Button"
+import Input from "./Input"
 
 function CreateContent({ open, onClose }) {
     return (
@@ -19,12 +20,6 @@ function CreateContent({ open, onClose }) {
     )
 }
 
-function Input({ onChange, placeholder }: { onChange: () => void }) {
-    return (
-        <div>
-            <input type="text" placeholder={placeholder} className="px-4 py-2 rounded-md my-2 " onChange={onChange} />
-        </div>
-    )
-}
+
 
 export default CreateContent

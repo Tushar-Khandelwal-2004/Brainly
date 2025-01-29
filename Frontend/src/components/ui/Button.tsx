@@ -7,6 +7,7 @@ interface ButtonProps{
     startIcon?:ReactElement,
     endIcon?:ReactElement,
     className?:String,
+    loading?:boolean,
     onClick?:()=>void
 }
 
@@ -25,6 +26,6 @@ const defaultStyles="rounded-md px-4 py-1"
 
 export const Button=(props:ButtonProps)=>{
     return(
-        <button onClick={props.onClick} className={`flex items-center justify-center ${VarientStyles[props.varient]} ${defaultStyles} ${SizeStyles[props.size]} ${props.className} cursor-pointer `}>{props.startIcon}&nbsp;{props.text}</button>
+        <button onClick={props.onClick} className={`flex items-center justify-center ${VarientStyles[props.varient]} ${defaultStyles} ${SizeStyles[props.size]} ${props.className} cursor-pointer ${props.loading && "opacity-45"} `} disabled={props.loading}>{props.startIcon}&nbsp;{props.loading?"Loading...":props.text}</button>
     )
 }
