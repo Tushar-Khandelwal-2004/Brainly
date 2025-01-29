@@ -8,13 +8,16 @@ import { z } from "zod"
 import { ContentModel, LinkModel, UserModel } from "./db";
 import { UserMiddleware } from "./middleware";
 import { random } from "./utilis";
+import cors from "cors";
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 app.post("/api/v1/signup", async (req: Request, res: Response): Promise<void> => {
     try {
         const signupSchema = z.object({
             username: z.string().min(1, "Username is required").max(20, "Username is too long"),
-            password: z.string().min(6, "Password must be at least 6 characters long")
+            password: z.string().min(5, "Password must be at least 6 characters long")
         });
 
         const result = signupSchema.safeParse(req.body);
@@ -109,11 +112,12 @@ app.post("/api/v1/signin", async (req: Request, res: Response): Promise<void> =>
 })
 
 app.post("/api/v1/content", UserMiddleware, async (req, res) => {
-    const { title, link } = req.body;
+    const { title, link,type } = req.body;
     await ContentModel.create({
 
         title,
         link,
+        type,
         //@ts-ignore
         userId: req.userId,
         tags: []
