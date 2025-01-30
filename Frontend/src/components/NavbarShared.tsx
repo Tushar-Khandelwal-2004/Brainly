@@ -1,12 +1,9 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
-import { Button } from "./ui/Button";
-import PlusIcon from "../icons/PlusIcon";
-import ShareIcon from "../icons/ShareIcon";
+
 import BrainIcon from "../assets/Brain.png"
-import axios from "axios";
-import { BACKEND_URL } from "../config";
-function Navbar({setModalOpen}) {
+
+function NavbarShared({ name }: { name: String }) {
     const { scrollY } = useScroll();
     const [hidden, setHidden] = useState(false);
     useMotionValueEvent(scrollY, "change", (latest) => {
@@ -17,18 +14,7 @@ function Navbar({setModalOpen}) {
             setHidden(false);
         }
     })
-    async function shareBrain(){
-        
-        const response=await axios.post(`${BACKEND_URL}/api/v1/brain/share`,{
-            share:true
-        },{
-            headers:{
-                Authorization:localStorage.getItem("token")
-            }
-        })
-        const shareUrl=`http://localhost:5173${response.data.message}`;
-        alert(shareUrl); 
-    }
+
     return (
         <motion.nav
             variants={{
@@ -42,14 +28,16 @@ function Navbar({setModalOpen}) {
                 <img className="size-10 " src={BrainIcon} alt="" />
                 <div className="pl-2 text-3xl flex items-center pb-2">Brainly</div>
             </div>
+            {/* <div className="flex gap-4 items-center">
+                <div className="pl-2 text-3xl flex items-center pb-2">{`${name}'s Brain`}</div>
+            </div> */}
             <div className="flex gap-4 items-center">
-            <Button onClick={() => setModalOpen(true)} startIcon={<ShareIcon size="sm" />} size="sm" text='Add Content' varient='primary' />
-            <Button onClick={()=>shareBrain()} startIcon={<PlusIcon size="md" />} size='sm' text='Share Brain' varient='secondary' />
-
+                <div className="pl-2 text-3xl font-semibold text-gray-900 flex items-center pt-2">
+                    <span className="text-blue-500">{`${name}'s`}</span>&nbsp;<span className="text-purple-600">Brain</span>
+                </div>
             </div>
-
         </motion.nav>
     )
 }
 
-export default Navbar
+export default NavbarShared

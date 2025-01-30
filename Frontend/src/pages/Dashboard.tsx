@@ -5,11 +5,18 @@ import CreateContent from "../components/CreateContent"
 import Navbar from "../components/Navbar"
 import Sidebar from "../components/Sidebar"
 import useContent from "../hooks/useContent"
+import { useNavigate } from "react-router-dom"
 
 function Dashboard() {
     const [modalOpen, setModalOpen] = useState(false)
     const {contents,refresh}=useContent();
-    useEffect(()=>{refresh()},[modalOpen]);
+    const navigate=useNavigate();
+    useEffect(()=>{
+        const token=localStorage.getItem("token");
+        if(!token){
+            navigate("/signin");
+        }
+        refresh()},[modalOpen]);
     return (
         <div>
 
