@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 function SidebarItem({ text, icon,className,onClick }: {
     text: string,
     icon: ReactElement,

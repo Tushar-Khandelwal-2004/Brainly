@@ -5,8 +5,9 @@ import PlusIcon from "../icons/PlusIcon";
 import ShareIcon from "../icons/ShareIcon";
 import BrainIcon from "../assets/Brain.png"
 import axios from "axios";
-import { BACKEND_URL } from "../config";
-function Navbar({setModalOpen}) {
+import { ToastContainer, toast } from 'react-toastify';
+import { BACKEND_URL, FRONTEND_URL } from "../config";
+function Navbar({ setModalOpen }) {
     const { scrollY } = useScroll();
     const [hidden, setHidden] = useState(false);
     useMotionValueEvent(scrollY, "change", (latest) => {
@@ -17,17 +18,28 @@ function Navbar({setModalOpen}) {
             setHidden(false);
         }
     })
-    async function shareBrain(){
-        
-        const response=await axios.post(`${BACKEND_URL}/api/v1/brain/share`,{
-            share:true
-        },{
-            headers:{
-                Authorization:localStorage.getItem("token")
+    async function shareBrain() {
+
+        const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {
+            share: true
+        }, {
+            headers: {
+                Authorization: localStorage.getItem("token")
             }
         })
-        const shareUrl=`http://localhost:5173${response.data.message}`;
-        alert(shareUrl); 
+        const shareUrl = `${FRONTEND_URL}${response.data.message}`;
+        await navigator.clipboard.writeText(shareUrl);
+        toast.success('Link copied to clipboard!', {
+            position: "top-center",
+            autoClose: 3000,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            //@ts-ignore
+            progressStyle: {
+                backgroundColor: '#3b82f6'
+            }
+        });
     }
     return (
         <motion.nav
@@ -42,9 +54,20 @@ function Navbar({setModalOpen}) {
                 <img className="size-10 " src={BrainIcon} alt="" />
                 <div className="pl-2 text-3xl flex items-center pb-2">Brainly</div>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <div className="flex gap-4 items-center">
-            <Button onClick={() => setModalOpen(true)} startIcon={<ShareIcon size="sm" />} size="sm" text='Add Content' varient='primary' />
-            <Button onClick={()=>shareBrain()} startIcon={<PlusIcon size="md" />} size='sm' text='Share Brain' varient='secondary' />
+                <Button onClick={() => setModalOpen(true)} startIcon={<ShareIcon size="sm" />} size="sm" text='Add Content' varient='primary' />
+                <Button onClick={() => shareBrain()} startIcon={<PlusIcon size="md" />} size='sm' text='Share Brain' varient='secondary' />
 
             </div>
 

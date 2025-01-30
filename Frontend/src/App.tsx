@@ -5,6 +5,9 @@ import Signin from './pages/Signin'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import Shared from './pages/Shared';
+//Delete content
+//signin UI
+//Log out
 function App() {
 
   return (
