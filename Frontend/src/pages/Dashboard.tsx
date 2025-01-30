@@ -8,31 +8,35 @@ import useContent from "../hooks/useContent"
 import { useNavigate } from "react-router-dom"
 
 function Dashboard() {
+    const [type, setType] = useState("");
     const [modalOpen, setModalOpen] = useState(false)
-    const {contents,refresh}=useContent();
-    const navigate=useNavigate();
-    useEffect(()=>{
-        const token=localStorage.getItem("token");
-        if(!token){
+    const { contents, refresh } = useContent();
+    const [content, setContent] = useState([]);
+    const navigate = useNavigate();
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
             navigate("/signin");
         }
-        refresh()},[modalOpen]);
+        refresh()
+        // console.log(content)
+    }, [modalOpen]);
+    useEffect(() => {
+        //@ts-ignore
+        const filteredContent = contents.filter((item) => item.type === type);
+        setContent(filteredContent);
+    }, [type]);
     return (
         <div>
 
-            <div>
-                <Sidebar />
-            </div>
+            <Sidebar setType={setType} />
             <Navbar setModalOpen={setModalOpen} />
             <div className='ml-60  bg-[#eeeeef]  '>
 
 
                 <div className='max-w-full pl-4  min-h-screen overflow-hidden flex flex-wrap gap-4 pt-20'>
-                    {contents.map(({type,title,link})=><Card title={title} type={type} link={link} />)}
+                    {content.length>0?content.map(({ type, title, link }) => <Card title={title} type={type} link={link} />):<div>Select Between Youtube and Twitter</div>}
                     <CreateContent open={modalOpen} onClose={() => setModalOpen(false)} />
-
-                    {/* <Card title="Ochi bolte" type="twitter" link='https://x.com/Beluga_69_69/status/1883555882447090143' />
-                    <Card title="Ochi bolte" type="youtube" link='https://www.youtube.com/watch?v=DW8QbuYSlHw' /> */}
 
                 </div>
             </div>

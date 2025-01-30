@@ -1,9 +1,7 @@
-//3:14:31
 import './App.css'
-import Dashboard from './pages/dashboard'
+import Dashboard from './pages/Dashboard'
 import Signup from './pages/Signup'
-import Signin from './pages/signin'
-// import { BrowserRouter ,Routes , Route } from 'react-router-dom'
+import Signin from './pages/Signin'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import Shared from './pages/Shared';
