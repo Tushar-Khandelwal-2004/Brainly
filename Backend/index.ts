@@ -143,10 +143,6 @@ app.get("/api/v1/content", UserMiddleware, async (req, res) => {
 
 app.delete("/api/v1/content", UserMiddleware, async (req, res) => {
     const contentId = req.body.contentId;
-    console.log(contentId);
-    //@ts-ignore
-
-    console.log(req.userId);
 
     await ContentModel.deleteMany({
         _id: contentId,
@@ -175,7 +171,7 @@ app.post("/api/v1/brain/share", UserMiddleware, async (req, res) => {
                 })
                 return;
             }
-            const hash = random(20);
+            const hash = random(40);
             await LinkModel.create({
                 //@ts-ignore
                 userId: req.userId,
