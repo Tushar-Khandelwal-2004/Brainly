@@ -8,7 +8,7 @@ import Card from "../components/Card";
 
 function Shared() {
     const [type, setType] = useState("");
-
+    const [share,setShare]=useState(true);
     const [username, setUsername] = useState("");
     const [content, setContent] = useState([]);
     const [contents, setContents] = useState([]);
@@ -35,7 +35,7 @@ function Shared() {
             <NavbarShared name={username} />
             <div className='ml-60  bg-[#eeeeef]  '>
                 <div className='max-w-full pl-4  min-h-screen overflow-hidden flex flex-wrap gap-4 pt-20'>
-                    {content.length > 0 ? content.map(({ type, title, link }) => <Card title={title} type={type} link={link} />) : <div>Select Between Youtube and Twitter</div>}
+                    {content.length > 0 ? content.map(({ type, title, link }) => <Card share={share} title={title} type={type} link={link} />) : <div>Select Between Youtube and Twitter!! Kindly Refresh</div>}
                     {/* <CreateContent open={modalOpen} onClose={() => setModalOpen(false)} /> */}
 
                     {/* {content.map(({ type, title, link }) => <Card title={title} type={type} link={link} />)} */}
