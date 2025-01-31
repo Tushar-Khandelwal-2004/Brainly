@@ -17,14 +17,14 @@ app.post("/api/v1/signup", async (req: Request, res: Response): Promise<void> =>
     try {
         const signupSchema = z.object({
             username: z.string().min(1, "Username is required").max(20, "Username is too long"),
-            password: z.string().min(5, "Password must be at least 6 characters long")
+            password: z.string().min(5, "Password must be at least 5 characters long")
         });
 
         const result = signupSchema.safeParse(req.body);
         if (!result.success) {
             res.status(400).json({
                 success: false,
-                message: "Enter username and password correctly"
+                message: result.error.errors[0].message
 
             });
             return;
