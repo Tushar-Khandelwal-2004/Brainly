@@ -38,14 +38,14 @@ function Dashboard() {
             <Sidebar setType={setType} />
             <Navbar setModalOpen={setModalOpen} />
             <div className="ml-60 pt-20 bg-[#eeeeef]">
-                <div className="max-w-full pl-4 min-h-screen overflow-hidden flex flex-wrap gap-4">
+                <div className="max-w-full  pl-4 min-h-screen overflow-hidden flex flex-wrap gap-4">
                     {content.length > 0 ? (
                         content.map((item, index) => (
                             //@ts-ignore
                             <Card key={index} contentId={item._id} onDelete={handleDelete} title={item.title} type={item.type} link={item.link} />
                         ))
                     ) : (
-                        <div>Select Between Youtube and Twitter</div>
+                        <div>Select Between Youtube and Twitter!! Kindly Refresh</div>
                     )}
                     <CreateContent open={modalOpen} onClose={() => setModalOpen(false)} />
                 </div>

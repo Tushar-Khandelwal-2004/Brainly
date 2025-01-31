@@ -5,11 +5,12 @@ import Signin from './pages/Signin'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import Shared from './pages/Shared';
+import LocomotiveScroll from "locomotive-scroll"
 //Delete content
 //signin UI
 //Log out
 function App() {
-
+  const locomotiveScroll=new LocomotiveScroll();
   return (
     <Router>
       <Routes>

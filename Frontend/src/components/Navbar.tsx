@@ -10,14 +10,14 @@ import { BACKEND_URL, FRONTEND_URL } from "../config";
 function Navbar({ setModalOpen }) {
     const { scrollY } = useScroll();
     const [hidden, setHidden] = useState(false);
-    useMotionValueEvent(scrollY, "change", (latest) => {
-        const previous = scrollY.getPrevious();
-        if (previous !== undefined && latest > previous && latest > 150) {
-            setHidden(true);
-        } else {
-            setHidden(false);
-        }
-    })
+    // useMotionValueEvent(scrollY, "change", (latest) => {
+    //     const previous = scrollY.getPrevious();
+    //     if (previous !== undefined && latest > previous && latest > 150) {
+    //         setHidden(true);
+    //     } else {
+    //         setHidden(false);
+    //     }
+    // })
     async function shareBrain() {
 
         const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {

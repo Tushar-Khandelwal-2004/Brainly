@@ -6,3 +6,11 @@
   600 - #5046e4
   */
 }
+/* If you want to remove scrollbar */
+/* body {
+  overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge 
+}*/
