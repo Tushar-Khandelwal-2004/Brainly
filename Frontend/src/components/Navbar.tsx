@@ -8,8 +8,8 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import { BACKEND_URL, FRONTEND_URL } from "../config";
 function Navbar({ setModalOpen }) {
-    const { scrollY } = useScroll();
-    const [hidden, setHidden] = useState(false);
+    // const { scrollY } = useScroll();
+    // const [hidden, setHidden] = useState(false);
     // useMotionValueEvent(scrollY, "change", (latest) => {
     //     const previous = scrollY.getPrevious();
     //     if (previous !== undefined && latest > previous && latest > 150) {
@@ -47,7 +47,7 @@ function Navbar({ setModalOpen }) {
                 visible: { y: 0 },
                 hidden: { y: "-100%" }
             }}
-            animate={hidden ? "hidden" : "visible"}
+            // animate={hidden ? "hidden" : "visible"}
             transition={{ duration: 0.35, ease: "easeInOut" }}
             className="fixed backdrop-blur  w-full px-12 py-4  flex justify-between items-center">
             <div className="flex justify-between items-center">

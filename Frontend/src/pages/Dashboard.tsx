@@ -38,7 +38,7 @@ function Dashboard() {
             <Sidebar setType={setType} />
             <Navbar setModalOpen={setModalOpen} />
             <div className="ml-60 pt-20 bg-[#eeeeef]">
-                <div className="max-w-full  pl-4 min-h-screen overflow-hidden flex flex-wrap gap-4">
+                <div className="max-w-full pb-4 pl-4 min-h-screen overflow-hidden flex flex-wrap gap-4">
                     {content.length > 0 ? (
                         content.map((item, index) => (
                             //@ts-ignore

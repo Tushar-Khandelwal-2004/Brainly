@@ -4,16 +4,16 @@ import { useState } from "react";
 import BrainIcon from "../assets/Brain.png"
 
 function NavbarShared({ name }: { name: String }) {
-    const { scrollY } = useScroll();
-    const [hidden, setHidden] = useState(false);
-    useMotionValueEvent(scrollY, "change", (latest) => {
-        const previous = scrollY.getPrevious();
-        if (previous !== undefined && latest > previous && latest > 150) {
-            setHidden(true);
-        } else {
-            setHidden(false);
-        }
-    })
+    // const { scrollY } = useScroll();
+    // const [hidden, setHidden] = useState(false);
+    // useMotionValueEvent(scrollY, "change", (latest) => {
+    //     const previous = scrollY.getPrevious();
+    //     if (previous !== undefined && latest > previous && latest > 150) {
+    //         setHidden(true);
+    //     } else {
+    //         setHidden(false);
+    //     }
+    // })
 
     return (
         <motion.nav
@@ -21,7 +21,7 @@ function NavbarShared({ name }: { name: String }) {
                 visible: { y: 0 },
                 hidden: { y: "-100%" }
             }}
-            animate={hidden ? "hidden" : "visible"}
+            // animate={hidden ? "hidden" : "visible"}
             transition={{ duration: 0.35, ease: "easeInOut" }}
             className="fixed backdrop-blur  w-full px-12 py-4  flex justify-between items-center">
             <div className="flex justify-between items-center">
