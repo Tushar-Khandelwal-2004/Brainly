@@ -4,7 +4,6 @@ import { Button } from "../components/ui/Button"
 import { BACKEND_URL } from "../config";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { div } from "framer-motion/client";
 
 function Signin() {
     const usernameRef = useRef<HTMLInputElement>();

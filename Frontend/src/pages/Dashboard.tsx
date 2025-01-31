@@ -26,19 +26,23 @@ function Dashboard() {
         //@ts-ignore
         const filteredContent = contents.filter((item) => item.type === type);
         setContent(filteredContent);
-    }, [type, contents]); 
-    
+    }, [type, contents]);
+    function handleDelete(id: string) {
+        //@ts-ignore
+        setContent((prev) => prev.filter((item) => item._id !== id));
+    }
+
 
     return (
         <div>
             <Sidebar setType={setType} />
             <Navbar setModalOpen={setModalOpen} />
-            <div className="ml-60 bg-[#eeeeef]">
-                <div className="max-w-full pl-4 min-h-screen overflow-hidden flex flex-wrap gap-4 pt-20">
+            <div className="ml-60 pt-20 bg-[#eeeeef]">
+                <div className="max-w-full pl-4 min-h-screen overflow-hidden flex flex-wrap gap-4">
                     {content.length > 0 ? (
                         content.map((item, index) => (
                             //@ts-ignore
-                            <Card key={index} title={item.title} type={item.type} link={item.link} />
+                            <Card key={index} contentId={item._id} onDelete={handleDelete} title={item.title} type={item.type} link={item.link} />
                         ))
                     ) : (
                         <div>Select Between Youtube and Twitter</div>
